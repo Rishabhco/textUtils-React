@@ -20,10 +20,8 @@ export default function TextForm(props) {
         props.showAlert("Text Cleared","success");
     }
     
-    let COPYIT=(event)=>{
-        setText(event.target.value);
-        let newtext=navigator.clipboard.writeText(text);
-        console.log(newtext);
+    let COPYIT=()=>{
+        navigator.clipboard.writeText(text);
         document.getSelection().removeAllRanges();
         props.showAlert("text copied successfully","success");
     };
@@ -46,8 +44,8 @@ export default function TextForm(props) {
             <button disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={COPYIT}>Copy</button>
         </div>
         <div className="container my-3" style={{color:props.mode==='light'?'black':'white'}}>
-           <p>{text.trim() === '' ? 0 : text.trim().split(' ').length} words and {text.length} characters</p>
-           <p>{0.008*(text.trim() === '' ? 0 : text.trim().split(' ').length)} Minutes read</p>
+           <p>{text.trim() === '' ? 0 : text.trim().split(/\s+/).length} words and {text.length} characters</p>
+           <p>{0.008*(text.trim() === '' ? 0 : text.trim().split(/\s+/).length)} Minutes read</p>
            <h2>Preview</h2>
             <div>{text.length>0 ?text:'Write something in textbox to see here'}</div>
         </div>
