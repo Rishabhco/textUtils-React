@@ -24,6 +24,7 @@ export default function TextForm(props) {
         setText(event.target.value);
         let newtext=navigator.clipboard.writeText(text);
         console.log(newtext);
+        document.getSelection().removeAllRanges();
         props.showAlert("text copied successfully","success");
     };
 
@@ -39,10 +40,10 @@ export default function TextForm(props) {
             <div className="mb-3">
                 <textarea className="form-control" value={text} onChange={handleOnChange} style={{backgroundColor:props.mode==='light'?'white':'#343a40',color:props.mode==='light'?'black':'white'}} id="myBox" rows="8"></textarea>
             </div>
-            <button className="btn btn-primary" onClick={handleUpClick} >Convert to uppercase</button>
-            <button className="btn btn-primary mx-3" onClick={handleLowClick} >Convert to Lowercase</button>
-            <button className="btn btn-primary mx-2" onClick={handleClClick}>Clear</button>
-            <button className="btn btn-primary mx-2" onClick={COPYIT}>Copy</button>
+            <button disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handleUpClick} >Convert to uppercase</button>
+            <button disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handleLowClick} >Convert to Lowercase</button>
+            <button disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handleClClick}>Clear</button>
+            <button disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={COPYIT}>Copy</button>
         </div>
         <div className="container my-3" style={{color:props.mode==='light'?'black':'white'}}>
            <p>{text.trim() === '' ? 0 : text.trim().split(' ').length} words and {text.length} characters</p>
